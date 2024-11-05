@@ -1,23 +1,19 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import {
-  BookOpen,
-  Settings2,
-  ChevronRight
-} from "lucide-react"
+import * as React from 'react'
+import { BookOpen, Settings2, ChevronRight } from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from '@/components/ui/sidebar'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from '@/components/ui/collapsible'
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -27,38 +23,38 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
-import Link from "next/link"
-import { Separator } from "../ui/separator"
+} from '@/components/ui/sidebar'
+import Link from 'next/link'
+import { Separator } from '../ui/separator'
 
 const data = {
   navMain: [
     {
-      title: "Dashboard",
-      url: "/dashboard",
+      title: 'Dashboard',
+      url: '/dashboard',
       icon: BookOpen,
-      isActive: true
+      isActive: true,
     },
     {
-      title: "Settings",
-      url: "#",
+      title: 'Settings',
+      url: '#',
       icon: Settings2,
       items: [
         {
-          title: "General",
-          url: "#",
+          title: 'General',
+          url: '#',
         },
         {
-          title: "Team",
-          url: "#",
+          title: 'Team',
+          url: '#',
         },
         {
-          title: "Billing",
-          url: "#",
+          title: 'Billing',
+          url: '#',
         },
         {
-          title: "Limits",
-          url: "#",
+          title: 'Limits',
+          url: '#',
         },
       ],
     },
@@ -77,7 +73,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenu>
             {data.navMain.map((item, index) => (
               <React.Fragment key={index}>
-                {item.items ? 
+                {item.items ? (
                   <Collapsible
                     key={item.title}
                     asChild
@@ -107,7 +103,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       </CollapsibleContent>
                     </SidebarMenuItem>
                   </Collapsible>
-                :
+                ) : (
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild tooltip={item.title}>
                       <Link href={item.url}>
@@ -116,15 +112,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
-                }
+                )}
               </React.Fragment>
             ))}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        {/* Nav Footer */}
-      </SidebarFooter>
+      <SidebarFooter>{/* Nav Footer */}</SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )

@@ -1,9 +1,9 @@
-import * as React from "react"
-import { Separator } from "../ui/separator";
-import { SidebarTrigger } from "../ui/sidebar";
-import Link from "next/link";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { Button } from "../ui/button";
+import * as React from 'react'
+import { Separator } from '../ui/separator'
+import { SidebarTrigger } from '../ui/sidebar'
+import Link from 'next/link'
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import { Button } from '../ui/button'
 import {
   Activity,
   ArrowUpRight,
@@ -14,10 +14,17 @@ import {
   Package2,
   Search,
   Users,
-} from "lucide-react"
-import { Input } from "../ui/input";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { ThemeToggle } from "./theme-toggle";
+} from 'lucide-react'
+import { Input } from '../ui/input'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu'
+import { ThemeToggle } from './theme-toggle'
 
 export function Header() {
   return (
@@ -34,11 +41,7 @@ export function Header() {
       </nav>
       <Sheet>
         <SheetTrigger asChild>
-          <Button
-            variant="outline"
-            size="icon"
-            className="shrink-0 md:hidden"
-          >
+          <Button variant="outline" size="icon" className="shrink-0 md:hidden">
             <Menu className="h-5 w-5" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
