@@ -1,15 +1,19 @@
 'use client'
 
 import * as React from 'react'
-import { ChevronRight, LogOut, Command, Sparkles, BadgeCheck, Bell, SquareTerminal, Bot } from 'lucide-react'
+import { ChevronRight, LogOut, Command, BadgeCheck, Bell, SquareTerminal, Bot, User } from 'lucide-react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarMenuSub, SidebarMenuSubItem, SidebarMenuSubButton, useSidebar, SidebarGroup, SidebarGroupLabel } from '@/components/ui/sidebar'
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarMenuSub, SidebarMenuSubItem, SidebarMenuSubButton, SidebarGroup, SidebarGroupLabel } from '@/components/ui/sidebar'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { CaretSortIcon, ComponentPlaceholderIcon } from '@radix-ui/react-icons'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { isMobile } = useSidebar()
+  const pathname = usePathname()
+
+  console.log(pathname)
 
   const data = {
     groups: [
@@ -18,7 +22,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         menus: [
           {
             title: 'Dashboard',
-            url: '#',
+            url: '/dashboard',
             icon: SquareTerminal,
             isActive: false,
           },
@@ -53,7 +57,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <Link href="/dashboard">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <Command className="size-4" />
                 </div>
@@ -61,7 +65,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <span className="truncate font-semibold">Acme Inc</span>
                   <span className="truncate text-xs">Enterprise</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -77,22 +81,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <Collapsible asChild defaultOpen={menu?.isActive} className="group/collapsible">
                       <SidebarMenuItem>
                         <CollapsibleTrigger asChild>
-                          <SidebarMenuButton asChild tooltip={menu?.title}>
-                            <a href={menu?.url}>
+                          <SidebarMenuButton asChild tooltip={menu?.title} isActive={pathname === menu?.url}>
+                            <Link href={menu?.url}>
                               {menu?.icon && <menu.icon />}
                               <span>{menu?.title}</span>
                               <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                            </a>
+                            </Link>
                           </SidebarMenuButton>
                         </CollapsibleTrigger>
                         <CollapsibleContent>
                           <SidebarMenuSub>
                             {menu?.subs?.map((sub) => (
                               <SidebarMenuSubItem key={sub?.title}>
-                                <SidebarMenuSubButton asChild>
-                                  <a href={sub?.url}>
+                                <SidebarMenuSubButton asChild isActive={pathname === sub?.url}>
+                                  <Link href={sub?.url}>
                                     <span>{sub?.title}</span>
-                                  </a>
+                                  </Link>
                                 </SidebarMenuSubButton>
                               </SidebarMenuSubItem>
                             ))}
@@ -102,11 +106,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </Collapsible>
                   ) : (
                     <SidebarMenuItem>
-                      <SidebarMenuButton asChild tooltip={menu?.title} isActive={menu?.isActive}>
-                        <a href={menu?.url}>
+                      <SidebarMenuButton asChild tooltip={menu?.title} isActive={pathname === menu?.url}>
+                        <Link href={menu?.url}>
                           {menu?.icon && <menu.icon />}
                           <span>{menu?.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   )}
@@ -119,40 +123,45 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
+            <SidebarMenuButton size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground" asChild>
+              <Link href="/login">
+                <Avatar className="h-8 w-8 rounded-lg">
+                  <AvatarFallback className="rounded-lg"><User /></AvatarFallback>
+                </Avatar>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-semibold">Login</span>
+                </div>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
                   <Avatar className="h-8 w-8 rounded-lg">
-                    <AvatarImage src={'user.avatar'} alt={'user.name'} />
-                    <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                    <AvatarImage src={'user.avatar'} alt={'Full Name'} />
+                    <AvatarFallback className="rounded-lg"><User /></AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold">{'user.name'}</span>
-                    <span className="truncate text-xs">{'user.email'}</span>
+                    <span className="truncate font-semibold">{'Full Name'}</span>
+                    <span className="truncate text-xs">{'email@example.com'}</span>
                   </div>
                   <CaretSortIcon className="ml-auto size-4" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg" side={isMobile ? 'bottom' : 'right'} align="end" sideOffset={4}>
+              <DropdownMenuContent className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg" side="bottom" align="center" sideOffset={4}>
                 <DropdownMenuLabel className="p-0 font-normal">
                   <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                     <Avatar className="h-8 w-8 rounded-lg">
-                      <AvatarImage src={'user.avatar'} alt={'user.name'} />
-                      <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                      <AvatarImage src={'user.avatar'} alt={'Full Name'} />
+                      <AvatarFallback className="rounded-lg">FN</AvatarFallback>
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-semibold">{'user.name'}</span>
-                      <span className="truncate text-xs">{'user.email'}</span>
+                      <span className="truncate font-semibold">{'Full Name'}</span>
+                      <span className="truncate text-xs">{'email@example.com'}</span>
                     </div>
                   </div>
                 </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem>
-                    <Sparkles />
-                    Upgrade to Pro
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem>

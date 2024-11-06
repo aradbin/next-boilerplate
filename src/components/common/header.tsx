@@ -2,6 +2,8 @@ import * as React from 'react'
 import { Separator } from '../ui/separator'
 import { SidebarTrigger } from '../ui/sidebar'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb'
+import { Home } from 'lucide-react'
+import Link from 'next/link'
 
 export function Header() {
   return (
@@ -12,11 +14,15 @@ export function Header() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem className="hidden md:block">
-              <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink>
+              <BreadcrumbLink asChild>
+                <Link href="/">
+                  <Home />
+                </Link>
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator className="hidden md:block" />
             <BreadcrumbItem>
-              <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+              <BreadcrumbPage>Dashboard</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
