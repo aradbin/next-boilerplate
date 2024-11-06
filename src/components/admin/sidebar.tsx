@@ -13,8 +13,6 @@ import { usePathname } from 'next/navigation'
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
 
-  console.log(pathname)
-
   const data = {
     groups: [
       {
@@ -52,7 +50,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }
 
   return (
-    <Sidebar variant="floating" collapsible="icon" side="left" {...props}>
+    <Sidebar variant="inset" collapsible="icon" side="left" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>

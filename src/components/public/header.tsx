@@ -1,90 +1,106 @@
+"use client"
+
 import * as React from 'react'
-import { CircleUser, Home, Menu, Package2 } from 'lucide-react'
+import { CircleUser, Command, Github, Home, Menu, Package2 } from 'lucide-react'
 import Link from 'next/link'
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from '../ui/sheet'
 import { Button } from '../ui/button'
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 import { Input } from '../ui/input'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
+import { ThemeToggle } from '../common/theme-toggle'
+import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils'
 
 export function Header() {
+  const pathname = usePathname()
   return (
-    <header className="fixed top-0 flex h-16 w-full items-center gap-4 border-b bg-background px-4 md:px-6">
-      <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-        <Link href="#" className="flex items-center gap-2 text-lg font-semibold md:text-base">
-          <Package2 className="h-6 w-6" />
-          <span className="sr-only">Acme Inc</span>
-        </Link>
-        <Link href="#" className="text-foreground transition-colors hover:text-foreground">
-          Dashboard
-        </Link>
-        <Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-          Orders
-        </Link>
-        <Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-          Products
-        </Link>
-        <Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-          Customers
-        </Link>
-        <Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-          Analytics
-        </Link>
-      </nav>
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle navigation menu</span>
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left">
-          <nav className="grid gap-6 text-lg font-medium">
-            <Link href="#" className="flex items-center gap-2 text-lg font-semibold">
-              <Package2 className="h-6 w-6" />
-              <span className="sr-only">Acme Inc</span>
-            </Link>
-            <Link href="#" className="hover:text-foreground">
-              Dashboard
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground">
-              Orders
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground">
-              Products
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground">
-              Customers
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground">
-              Analytics
-            </Link>
-          </nav>
-        </SheetContent>
-      </Sheet>
-      <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-        <form className="ml-auto flex-1 sm:flex-initial">
-          <div className="relative">
-            <MagnifyingGlassIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input type="search" placeholder="Search products..." className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]" />
-          </div>
-        </form>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="secondary" size="icon" className="rounded-full">
-              <CircleUser className="h-5 w-5" />
-              <span className="sr-only">Toggle user menu</span>
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-border">
+      <div className="flex h-14 items-center justify-between px-4 md:px-10">
+        
+        {/* MobileNav */}
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="outline"
+              size="icon"
+              className="shrink-0 md:hidden"
+            >
+              <Menu className='h-5 w-5' />
+              <span className="sr-only">Toggle Menu</span>
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          </SheetTrigger>
+          <SheetContent side="left">
+            <SheetHeader>
+              <Link href="/" className="mr-4 flex items-center justify-center space-x-2">
+                <Command />
+                <span className="font-bold">
+                  Acme Inc
+                </span>
+              </Link>
+            </SheetHeader>
+            <div className="overflow-auto py-10">
+              <div className="flex flex-col space-y-3">
+                <Link href="/dashboard" className="hover:text-foreground">
+                  Dashboard
+                </Link>
+                <Link href="/pricing" className="hover:text-foreground">
+                  Pricing
+                </Link>
+              </div>
+            </div>
+            <SheetFooter>
+              <Button variant="outline" asChild>
+                <Link href="/login">Get Started</Link>
+              </Button>
+            </SheetFooter>
+          </SheetContent>
+        </Sheet>
+        <div className="flex md:hidden">
+          <Link href="/" className="mr-4 flex items-center space-x-2">
+            <Command />
+            <span className="font-bold">
+              Acme Inc
+            </span>
+          </Link>
+        </div>
+        {/* MobileNav */}
+
+        {/* MainNav */}
+        <div className="hidden md:flex gap-6 items-center text-sm">
+          <Link href="/" className="flex items-center space-x-2">
+            <Command />
+            <span className="hidden font-bold lg:inline-block">
+              Acme Inc
+            </span>
+          </Link>
+          <Link
+            href="/dashboard"
+            className={cn(
+              "transition-colors hover:text-foreground/80",
+              pathname === "/dashboard" ? "text-foreground" : "text-foreground/60"
+            )}
+          >
+            Dashboard
+          </Link>
+          <Link
+            href="/pricing"
+            className={cn(
+              "transition-colors hover:text-foreground/80",
+              pathname === "/pricing" ? "text-foreground" : "text-foreground/60"
+            )}
+          >
+            Pricing
+          </Link>
+        </div>
+        {/* MainNav */}
+
+        <div className="flex items-center gap-2">
+          <Button className='hidden md:flex' asChild>
+            <Link href="/login">Login</Link>
+          </Button>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   )
