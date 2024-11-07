@@ -12,7 +12,7 @@ export default function LoginForm() {
         <CardDescription>Enter your email below to login to your account</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-4">
+        <form className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" placeholder="email@example.com" required />
@@ -29,7 +29,7 @@ export default function LoginForm() {
           <Button type="submit" className="w-full">
             Login
           </Button>
-        </div>
+        </form>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{' '}
           <Link href="/register" className="underline">
