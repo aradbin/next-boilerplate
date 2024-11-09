@@ -8,7 +8,7 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { InputField } from '@/components/forms/input-field'
+import { InputField } from '@/components/fields/input-field'
 
 const formSchema = z.object({
   email: z.string().min(1, { message: 'Email is required' }).email({ message: 'Invalid email address' }),

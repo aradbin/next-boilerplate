@@ -7,6 +7,7 @@ import { useState } from 'react'
 
 export function SearchToggle() {
   const [open, setOpen] = useState(false)
+
   return (
     <>
       <Button variant="outline" size="icon" onClick={() => setOpen(true)}>
