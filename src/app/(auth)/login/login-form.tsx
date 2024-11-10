@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { InputField } from '@/components/fields/input-field'
+import { login } from '../actions'
 
 const formSchema = z.object({
   email: z.string().min(1, { message: 'Email is required' }).email({ message: 'Invalid email address' }),
@@ -24,10 +25,13 @@ export default function LoginForm() {
     },
   })
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values)
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    await login(values).then((res) => {
+      
+    }).finally(() => {
+      
+    })
   }
-
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
@@ -41,7 +45,6 @@ export default function LoginForm() {
               form={form}
               data={{
                 name: 'email',
-                type: 'email',
                 placeholder: 'email@example.com',
               }}
             />
@@ -63,8 +66,8 @@ export default function LoginForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
-              Login
+            <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+              {form.formState.isSubmitting ? 'Please wait' : 'Login'}
             </Button>
           </form>
         </Form>
