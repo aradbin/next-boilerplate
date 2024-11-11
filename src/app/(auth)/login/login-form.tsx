@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { InputField } from '@/components/fields/input-field'
 import { login } from '../actions'
+import { toast } from 'sonner'
 
 const formSchema = z.object({
   email: z.string().min(1, { message: 'Email is required' }).email({ message: 'Invalid email address' }),
@@ -26,11 +27,12 @@ export default function LoginForm() {
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await login(values).then((res) => {
-      
-    }).finally(() => {
-      
-    })
+    const response = await login(values)
+    if (response?.success) {
+      toast.success(response.message)
+    } else {
+      toast.error(response.message)
+    }
   }
   return (
     <Card className="mx-auto max-w-sm">
