@@ -1,7 +1,8 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'
-import { BadgeCheck, Bell, DollarSign, LogOut, User } from 'lucide-react'
+import { BadgeCheck, Bell, DollarSign, User } from 'lucide-react'
+import Logout from '../admin/logout'
 
 export function UserToggle() {
   return (
@@ -45,10 +46,7 @@ export function UserToggle() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <LogOut />
-          Log out
-        </DropdownMenuItem>
+        <Logout />
       </DropdownMenuContent>
     </DropdownMenu>
   )

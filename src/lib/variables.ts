@@ -1,4 +1,4 @@
-export const baseUrl = 'https://api.rci.rest'
+export const baseUrl = 'http://ahmednasser.xyz'
 
 export const endpoints = {
   login: `${baseUrl}/auth/login`,

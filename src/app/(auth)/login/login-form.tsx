@@ -11,13 +11,16 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { InputField } from '@/components/fields/input-field'
 import { login } from '../actions'
 import { toast } from 'sonner'
-
-const formSchema = z.object({
-  email: z.string().min(1, { message: 'Email is required' }).email({ message: 'Invalid email address' }),
-  password: z.string().min(1, { message: 'Password is required' }),
-})
+import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export default function LoginForm() {
+  const router = useRouter()
+  const formSchema = z.object({
+    email: z.string().min(1, { message: 'Email is required' }).email({ message: 'Invalid email address' }),
+    password: z.string().min(1, { message: 'Password is required' }),
+  })
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -29,11 +32,13 @@ export default function LoginForm() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const response = await login(values)
     if (response?.success) {
-      toast.success(response.message)
+      toast.success(response?.message)
+      router.push('/dashboard')
     } else {
-      toast.error(response.message)
+      toast.error(response?.message)
     }
   }
+
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
@@ -69,7 +74,13 @@ export default function LoginForm() {
               )}
             />
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-              {form.formState.isSubmitting ? 'Please wait' : 'Login'}
+              {form.formState.isSubmitting ? (
+                <>
+                  <Loader2 className="animate-spin" /> Please Wait
+                </>
+              ) : (
+                'Login'
+              )}
             </Button>
           </form>
         </Form>
