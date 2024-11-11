@@ -1,3 +1,5 @@
+export const baseUrl = 'https://api.rci.rest'
+
 export const endpoints = {
-  login: '/api/login',
+  login: `${baseUrl}/auth/login`,
 }

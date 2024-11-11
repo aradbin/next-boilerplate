@@ -1,7 +1,7 @@
 'use server'
 
 import { postRequest } from "@/lib/requests";
-import axios from "axios";
+import { endpoints } from "@/lib/variables";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -9,21 +9,19 @@ export async function login(values: {
   email: string;
   password: string;
 }) {
-  const response = await postRequest('https://api.rci.rest/auth/login', values)
-  console.log(response)
-  // if(!response.data.accessToken){
-  //   return { error: 'Invalid credentials' }
-  // }
+  const response = await postRequest(endpoints.login, values)
+  if(response?.data?.accessToken){
+    cookies().set('session', response.data.accessToken, {
+      httpOnly: true,
+      secure: true,
+      expires: new Date(Date.now() + 60 * 60 * 1000),
+      sameSite: 'lax',
+      path: '/',
+    });
+    redirect('/dashboard')
+  }
 
-  // cookies().set('session', response.data.accessToken, {
-  //   httpOnly: true,
-  //   secure: true,
-  //   expires: new Date(Date.now() + 60 * 60 * 1000),
-  //   sameSite: 'lax',
-  //   path: '/',
-  // });
-
-  // redirect('/dashboard');
+  return response
 }
 
 export async function logout() {
