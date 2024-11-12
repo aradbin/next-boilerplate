@@ -8,9 +8,11 @@ import { Button } from '../ui/button'
 import { ThemeToggle } from '../common/theme-toggle'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/providers/auth-provider'
 
 export function Header() {
   const pathname = usePathname()
+  const { user } = useAuth()
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-border">
@@ -32,8 +34,8 @@ export function Header() {
             </SheetHeader>
             <div className="overflow-auto py-10">
               <div className="flex flex-col space-y-3">
-                <Link href="/dashboard" className="hover:text-foreground">
-                  Dashboard
+                <Link href="/about" className="hover:text-foreground">
+                  About
                 </Link>
                 <Link href="/pricing" className="hover:text-foreground">
                   Pricing
@@ -42,7 +44,11 @@ export function Header() {
             </div>
             <SheetFooter>
               <Button variant="outline" asChild>
-                <Link href="/login">Get Started</Link>
+                {user ?
+                  <Link href="/dashboard">Dashboard</Link>
+                :
+                  <Link href="/login">Get Started</Link>
+                }
               </Button>
             </SheetFooter>
           </SheetContent>
@@ -61,8 +67,8 @@ export function Header() {
             <Command />
             <span className="hidden font-bold lg:inline-block">Acme Inc</span>
           </Link>
-          <Link href="/dashboard" className={cn('transition-colors hover:text-foreground/80', pathname === '/dashboard' ? 'text-foreground' : 'text-foreground/60')}>
-            Dashboard
+          <Link href="/about" className={cn('transition-colors hover:text-foreground/80', pathname === '/pricing' ? 'text-foreground' : 'text-foreground/60')}>
+            About
           </Link>
           <Link href="/pricing" className={cn('transition-colors hover:text-foreground/80', pathname === '/pricing' ? 'text-foreground' : 'text-foreground/60')}>
             Pricing
@@ -72,7 +78,11 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <Button className="hidden md:flex" asChild>
-            <Link href="/login">Get Started</Link>
+            {user ?
+              <Link href="/dashboard">Dashboard</Link>
+            :
+              <Link href="/login">Get Started</Link>
+            }
           </Button>
           <ThemeToggle />
         </div>

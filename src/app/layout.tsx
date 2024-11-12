@@ -4,6 +4,7 @@ import NextTopLoader from 'nextjs-toploader'
 import { ThemeProvider } from '@/providers/theme-provider'
 import './../../public/globals.css'
 import { Toaster } from '@/components/ui/sonner'
+import { AuthProvider } from '@/providers/auth-provider'
 
 const geistSans = localFont({
   src: '../../public/fonts/GeistVF.woff',
@@ -31,7 +32,9 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextTopLoader height={3} showSpinner={false} />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </ThemeProvider>
         <Toaster richColors />
       </body>

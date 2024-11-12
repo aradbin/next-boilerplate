@@ -45,6 +45,38 @@ export async function login(values: { email: string; password: string }) {
     })
 }
 
+export async function profile() {
+  const access = cookies().get('access')?.value
+
+  if(!access){
+    return {
+      success: false,
+      data: null,
+      message: 'Unauthorized. Please login',
+    }
+  }
+
+  return await axios
+    .get(endpoints.profile, {
+      headers: {
+        Authorization: `Bearer ${access}`
+      }
+    })
+    .then((res) => {
+      return {
+        success: true,
+        data: res?.data,
+      }
+    })
+    .catch((error) => {
+      return {
+        success: false,
+        data: null,
+        message: error?.response?.data?.message || 'Something went wrong. Please try again',
+      }
+    })
+}
+
 export async function logout() {
   cookies().delete('access')
   redirect('/')
