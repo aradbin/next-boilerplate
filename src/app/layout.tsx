@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/providers/theme-provider'
 import './../../public/globals.css'
 import { Toaster } from '@/components/ui/sonner'
 import { AuthProvider } from '@/providers/auth-provider'
+import QueryProvider from '@/providers/query-provider'
 
 const geistSans = localFont({
   src: '../../public/fonts/GeistVF.woff',
@@ -33,7 +34,9 @@ export default function RootLayout({
         <NextTopLoader height={3} showSpinner={false} />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <AuthProvider>
-            {children}
+            <QueryProvider>
+              {children}
+            </QueryProvider>
           </AuthProvider>
         </ThemeProvider>
         <Toaster richColors />

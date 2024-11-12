@@ -1,6 +1,17 @@
 'use server'
 
 import axios from 'axios'
+import { cookies } from 'next/headers';
+
+const access = cookies().get('access')?.value;
+
+axios.interceptors.request.use((config) => {
+  if (access) {
+    config.headers.Authorization = `Bearer ${access}`
+  }
+
+  return config
+})
 
 export async function getRequest(url: string) {
   return await axios.get(url)
