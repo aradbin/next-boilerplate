@@ -34,9 +34,7 @@ export default function RootLayout({
         <NextTopLoader height={3} showSpinner={false} />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <AuthProvider>
-            <QueryProvider>
-              {children}
-            </QueryProvider>
+            <QueryProvider>{children}</QueryProvider>
           </AuthProvider>
         </ThemeProvider>
         <Toaster richColors />

@@ -6,7 +6,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 const AuthContext = createContext<{
   user: any
 }>({
-  user: null
+  user: null,
 })
 
 export function AuthProvider({ children }: any) {
@@ -18,8 +18,8 @@ export function AuthProvider({ children }: any) {
 
   const getProfile = async () => {
     const response = await profile()
-    
-    if(response?.success && response?.data){
+
+    if (response?.success && response?.data) {
       setUser(response?.data)
     }
   }
@@ -29,7 +29,7 @@ export function AuthProvider({ children }: any) {
 
 export function useAuth() {
   const context = useContext(AuthContext)
-  
+
   if (!context) {
     throw new Error('useAuth must be used within a AuthProvider')
   }

@@ -10,16 +10,14 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <AppSidebar />
       <SidebarInset>
         <Header />
-          <div className='flex flex-col w-full p-4'>
-            <Card className='w-full'>
-              <CardHeader>
-                <BreadcrumbComponent />
-              </CardHeader>
-              <CardContent>
-                {children}
-              </CardContent>
-            </Card>
-          </div>
+        <div className="flex flex-col w-full p-4">
+          <Card className="w-full">
+            <CardHeader>
+              <BreadcrumbComponent />
+            </CardHeader>
+            <CardContent>{children}</CardContent>
+          </Card>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   )

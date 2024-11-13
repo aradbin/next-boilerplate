@@ -44,11 +44,7 @@ export function Header() {
             </div>
             <SheetFooter>
               <Button variant="outline" asChild>
-                {user ?
-                  <Link href="/dashboard">Dashboard</Link>
-                :
-                  <Link href="/login">Get Started</Link>
-                }
+                {user ? <Link href="/dashboard">Dashboard</Link> : <Link href="/login">Get Started</Link>}
               </Button>
             </SheetFooter>
           </SheetContent>
@@ -78,11 +74,7 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <Button className="hidden md:flex" asChild>
-            {user ?
-              <Link href="/dashboard">Dashboard</Link>
-            :
-              <Link href="/login">Get Started</Link>
-            }
+            {user ? <Link href="/dashboard">Dashboard</Link> : <Link href="/login">Get Started</Link>}
           </Button>
           <ThemeToggle />
         </div>

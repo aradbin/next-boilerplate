@@ -1,27 +1,27 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { MoreHorizontal } from "lucide-react"
+import { Button } from '@/components/ui/button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { MoreHorizontal } from 'lucide-react'
 
 export const userColumns: any = [
   {
-    accessorKey: "name",
-    header: "Name",
+    accessorKey: 'name',
+    header: 'Name',
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: 'email',
+    header: 'Email',
   },
   {
-    accessorKey: "contact",
-    header: "Contact",
+    accessorKey: 'contact',
+    header: 'Contact',
   },
   // {
   //   id: "actions",
   //   cell: ({ row }: any) => {
   //     const payment = row.original
- 
+
   //     return (
   //       <DropdownMenu>
   //         <DropdownMenuTrigger asChild>

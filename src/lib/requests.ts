@@ -1,9 +1,9 @@
 'use server'
 
 import axios from 'axios'
-import { cookies } from 'next/headers';
+import { cookies } from 'next/headers'
 
-const access = cookies().get('access')?.value;
+const access = cookies().get('access')?.value
 
 axios.interceptors.request.use((config) => {
   if (access) {
@@ -14,7 +14,8 @@ axios.interceptors.request.use((config) => {
 })
 
 export async function getRequest(url: string, params: any = {}) {
-  return await axios.get(url)
+  return await axios
+    .get(url)
     .then((response) => response.data)
     .catch((error) => error?.response?.data)
 }

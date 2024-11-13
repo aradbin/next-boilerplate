@@ -25,13 +25,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             title: 'Users',
             url: '/users',
             icon: Bot,
-            isActive: false
+            isActive: false,
           },
           {
             title: 'Tenants',
             url: '/tenants',
             icon: Bot,
-            isActive: false
+            isActive: false,
           },
         ],
       },
@@ -68,24 +68,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <Collapsible asChild defaultOpen={menu?.isActive} className="group/collapsible">
                       <SidebarMenuItem>
                         <CollapsibleTrigger asChild>
-                        {menu?.url ?
-                          <SidebarMenuButton asChild tooltip={menu?.title} isActive={pathname === menu?.url}>
-                            <Link href={menu?.url}>
-                              {menu?.icon && <menu.icon />}
-                              <span>{menu?.title}</span>
-                              <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                            </Link>
-                          </SidebarMenuButton>
-                              
-                        :
-                          <SidebarMenuButton tooltip={menu?.title} isActive={menu?.isActive}>
-                            <>
-                              {menu?.icon && <menu.icon />}
-                              <span>{menu?.title}</span>
-                              <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                            </>
-                          </SidebarMenuButton>
-                        }
+                          {menu?.url ? (
+                            <SidebarMenuButton asChild tooltip={menu?.title} isActive={pathname === menu?.url}>
+                              <Link href={menu?.url}>
+                                {menu?.icon && <menu.icon />}
+                                <span>{menu?.title}</span>
+                                <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                              </Link>
+                            </SidebarMenuButton>
+                          ) : (
+                            <SidebarMenuButton tooltip={menu?.title} isActive={menu?.isActive}>
+                              <>
+                                {menu?.icon && <menu.icon />}
+                                <span>{menu?.title}</span>
+                                <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                              </>
+                            </SidebarMenuButton>
+                          )}
                         </CollapsibleTrigger>
                         <CollapsibleContent>
                           <SidebarMenuSub>

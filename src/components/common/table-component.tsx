@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Button } from "../ui/button"
-import { Skeleton } from "../ui/skeleton"
-import { getQuery } from "@/lib/queries"
+import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Button } from '../ui/button'
+import { Skeleton } from '../ui/skeleton'
+import { getQuery } from '@/lib/queries'
 
 interface TableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -17,7 +17,7 @@ export function TableInstance<TData, TValue>({ columns, data }: TableProps<TData
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel()
+    getPaginationRowModel: getPaginationRowModel(),
   })
 
   return (
@@ -28,16 +28,7 @@ export function TableInstance<TData, TValue>({ columns, data }: TableProps<TData
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  )
+                  return <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>
                 })}
               </TableRow>
             ))}
@@ -45,58 +36,43 @@ export function TableInstance<TData, TValue>({ columns, data }: TableProps<TData
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <>
-              {isLoading ?
-                <>
-                  {Array.from({ length: 10 }).map((_, indexRow) => (
-                    <TableRow key={indexRow}>
-                      {Array.from({ length: columns.length }).map((_, indexCell) => (
-                        <TableCell key={indexCell}>
-                          <Skeleton className="w-1/2 h-[20px] rounded-full" />
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))}
-                </>
-              :
-                <TableRow>
-                  <TableCell colSpan={columns.length} className="h-24 text-center">
-                    No results.
-                  </TableCell>
-                </TableRow>
-              }
+                {isLoading ? (
+                  <>
+                    {Array.from({ length: 10 }).map((_, indexRow) => (
+                      <TableRow key={indexRow}>
+                        {Array.from({ length: columns.length }).map((_, indexCell) => (
+                          <TableCell key={indexCell}>
+                            <Skeleton className="w-1/2 h-[20px] rounded-full" />
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+                  </>
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={columns.length} className="h-24 text-center">
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                )}
               </>
             )}
           </TableBody>
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
+        <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
           Previous
         </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
+        <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
           Next
         </Button>
       </div>
@@ -107,7 +83,5 @@ export function TableInstance<TData, TValue>({ columns, data }: TableProps<TData
 export function TableComponent({ queryKey, columns, url }: any) {
   const { data, isLoading } = getQuery(queryKey, url)
 
-  return (
-    <TableInstance columns={columns} data={data || []} isLoading={isLoading} />
-  )
+  return <TableInstance columns={columns} data={data || []} isLoading={isLoading} />
 }

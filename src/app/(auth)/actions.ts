@@ -9,7 +9,7 @@ export async function login(values: { email: string; password: string }) {
   return await axios
     .post(endpoints.login, values)
     .then((res) => {
-      console.log('res',res)
+      console.log('res', res)
       if (res?.data?.accessToken) {
         cookies().set('access', res?.data?.accessToken, {
           httpOnly: true,
@@ -39,7 +39,7 @@ export async function login(values: { email: string; password: string }) {
       }
     })
     .catch((error) => {
-      console.log('error',error)
+      console.log('error', error)
       return {
         success: false,
         message: error?.response?.data?.message || 'Something went wrong. Please try again',
@@ -50,7 +50,7 @@ export async function login(values: { email: string; password: string }) {
 export async function profile() {
   const access = cookies().get('access')?.value
 
-  if(!access){
+  if (!access) {
     return {
       success: false,
       data: null,
@@ -61,8 +61,8 @@ export async function profile() {
   return await axios
     .get(endpoints.profile, {
       headers: {
-        Authorization: `Bearer ${access}`
-      }
+        Authorization: `Bearer ${access}`,
+      },
     })
     .then((res) => {
       return {
