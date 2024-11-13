@@ -13,8 +13,10 @@ axios.interceptors.request.use((config) => {
   return config
 })
 
-export async function getRequest(url: string) {
+export async function getRequest(url: string, params: any = {}) {
   return await axios.get(url)
+    .then((response) => response.data)
+    .catch((error) => error?.response?.data)
 }
 
 export async function postRequest(url: string, values: any) {

@@ -1,15 +1,15 @@
 import * as React from 'react'
-import { SidebarToggle } from '../common/sidebar-toggle'
+import { SidebarToggle } from './sidebar-toggle'
 import { ThemeToggle } from '../common/theme-toggle'
 import { UserToggle } from '../common/user-toggle'
 import { LanguageToggle } from '../common/language-toggle'
-import { SearchToggle } from '../common/search-toggle'
+import { SearchComponent } from '../common/search-component'
 import Link from 'next/link'
 import { Command } from 'lucide-react'
 
 export function Header() {
   return (
-    <header className="flex gap-2 shrink-0 items-center justify-between h-16 px-4">
+    <header className="flex gap-2 shrink-0 items-center justify-between h-16 px-4 border-b">
       <div className="flex gap-4 items-center">
         <SidebarToggle />
         <Link href="/dashboard" className="flex items-center md:hidden">
@@ -23,7 +23,7 @@ export function Header() {
         </Link>
       </div>
       <div className="flex gap-2">
-        <SearchToggle />
+        <SearchComponent />
         <LanguageToggle />
         <ThemeToggle />
         <UserToggle />
