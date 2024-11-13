@@ -7,6 +7,17 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+interface IconProps {
+  icon: React.ElementType
+}
+interface MenuType {
+  title: string
+  url: string
+  icon: IconProps['icon']
+  isActive: boolean
+  subs?: MenuType[]
+}
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
 
@@ -62,7 +73,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroup key={index}>
             {group?.title && <SidebarGroupLabel>{group?.title}</SidebarGroupLabel>}
             <SidebarMenu>
-              {group?.menus?.map((menu: any) => (
+              {group?.menus?.map((menu: MenuType) => (
                 <React.Fragment key={menu?.title}>
                   {menu?.subs?.length ? (
                     <Collapsible asChild defaultOpen={menu?.isActive} className="group/collapsible">
@@ -88,7 +99,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         </CollapsibleTrigger>
                         <CollapsibleContent>
                           <SidebarMenuSub>
-                            {menu?.subs?.map((sub: any) => (
+                            {menu?.subs?.map((sub: MenuType) => (
                               <SidebarMenuSubItem key={sub?.title}>
                                 <SidebarMenuSubButton asChild isActive={pathname === sub?.url}>
                                   <Link href={sub?.url}>

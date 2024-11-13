@@ -9,7 +9,6 @@ export async function login(values: { email: string; password: string }) {
   return await axios
     .post(endpoints.login, values)
     .then((res) => {
-      console.log('res', res)
       if (res?.data?.accessToken) {
         cookies().set('access', res?.data?.accessToken, {
           httpOnly: true,
@@ -81,5 +80,5 @@ export async function profile() {
 
 export async function logout() {
   cookies().delete('access')
-  redirect('/')
+  redirect('/login')
 }

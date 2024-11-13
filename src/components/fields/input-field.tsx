@@ -2,7 +2,22 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessa
 import { Input } from '../ui/input'
 import { upperFirst } from 'lodash'
 
-export function InputField({ form, data }: any) {
+export function InputField({
+  form,
+  data,
+}: {
+  form: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    control: any
+  }
+  data: {
+    name: string
+    label?: string
+    type?: string
+    placeholder?: string
+    description?: string
+  }
+}) {
   return (
     <FormField
       control={form.control}

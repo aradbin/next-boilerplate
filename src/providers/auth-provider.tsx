@@ -4,12 +4,16 @@ import { profile } from '@/app/(auth)/actions'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 const AuthContext = createContext<{
-  user: any
+  user: {
+    id: string
+    name: string
+    email: string
+  } | null
 }>({
   user: null,
 })
 
-export function AuthProvider({ children }: any) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState(null)
 
   useEffect(() => {

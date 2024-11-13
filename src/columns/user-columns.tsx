@@ -1,11 +1,13 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Delete, Edit, MoreHorizontal, Trash2, User } from 'lucide-react'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { UserType } from '@/lib/types'
+import { ColumnDef } from '@tanstack/react-table'
+import { Edit, MoreHorizontal, Trash2, User } from 'lucide-react'
 import Link from 'next/link'
 
-export const userColumns: any = [
+export const userColumns: ColumnDef<UserType>[] = [
   {
     accessorKey: 'name',
     header: 'Name',
@@ -19,8 +21,8 @@ export const userColumns: any = [
     header: 'Contact',
   },
   {
-    id: "actions",
-    cell: ({ row }: any) => {
+    id: 'actions',
+    cell: ({ row }: { row: { original: UserType } }) => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

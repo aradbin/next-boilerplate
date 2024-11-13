@@ -2,19 +2,21 @@
 
 import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Button } from '../ui/button'
 import { Skeleton } from '../ui/skeleton'
-import { getQuery } from '@/lib/queries'
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '../ui/pagination'
+import { GetQuery } from '@/lib/queries'
 import PaginationComponent from './pagination-component'
 
-interface TableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+export function TableInstance<TData, TValue>(
+  {
+    columns,
+    data,
+  }: {
+    columns: ColumnDef<TData, TValue>[]
+    data: TData[]
+    isLoading: boolean
+  },
   isLoading: boolean
-}
-
-export function TableInstance<TData, TValue>({ columns, data }: TableProps<TData, TValue>, isLoading: boolean) {
+) {
   const table = useReactTable({
     data,
     columns,
@@ -75,8 +77,8 @@ export function TableInstance<TData, TValue>({ columns, data }: TableProps<TData
   )
 }
 
-export function TableComponent({ queryKey, columns, url }: any) {
-  const { data, isLoading } = getQuery(queryKey, url)
+export function TableComponent<TData, TValue>({ queryKey, columns, url }: { queryKey: string; columns: ColumnDef<TData, TValue>[]; url: string }) {
+  const { data, isLoading } = GetQuery(queryKey, url)
 
   return <TableInstance columns={columns} data={data || []} isLoading={isLoading} />
 }

@@ -1,11 +1,20 @@
 'use client'
 
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import Link from "next/link";
-import { Button } from "../ui/button";
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
+import Link from 'next/link'
+import { Button } from '../ui/button'
+import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 
-export default function PaginationComponent({ table }: any) {
+type PaginationProps = {
+  table: {
+    nextPage: () => void
+    previousPage: () => void
+    getCanNextPage: () => boolean
+    getCanPreviousPage: () => boolean
+  }
+}
+
+export default function PaginationComponent({ table }: PaginationProps) {
   return (
     <nav role="navigation" aria-label="pagination" className="flex w-full items-center justify-end py-4 mx-auto">
       <ul className="flex flex-row items-center gap-1">
@@ -17,7 +26,7 @@ export default function PaginationComponent({ table }: any) {
         </li>
         <li>
           <Button variant="ghost" size="icon" asChild>
-            <Link href='#'>
+            <Link href="#">
               <span>1</span>
             </Link>
           </Button>
@@ -30,13 +39,13 @@ export default function PaginationComponent({ table }: any) {
         </li>
         <li>
           <Button variant="ghost" size="icon" asChild>
-            <Link href='#'>
+            <Link href="#">
               <span>2</span>
             </Link>
           </Button>
         </li>
         <li>
-          <Button aria-label="Go to next page" className="gap-1 pr-2.5" variant="ghost" size="default" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} >
+          <Button aria-label="Go to next page" className="gap-1 pr-2.5" variant="ghost" size="default" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
             <span>Next</span>
             <ChevronRightIcon className="h-4 w-4" />
           </Button>

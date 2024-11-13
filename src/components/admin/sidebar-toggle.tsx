@@ -12,7 +12,7 @@ export function SidebarToggle() {
 
   useEffect(() => {
     setOpenMobile(false)
-  }, [pathname])
+  }, [pathname, setOpenMobile])
 
   return (
     <Button data-sidebar="trigger" variant="outline" size="icon" className="" onClick={toggleSidebar}>

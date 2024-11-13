@@ -15,7 +15,7 @@ export default function NotFound() {
         </CardHeader>
         <CardContent className="text-center">
           <p className="text-xl font-semibold mb-2">Page Not Found</p>
-          <p className="text-muted-foreground">Oops! The page you are looking for doesn't exist or has been moved.</p>
+          <p className="text-muted-foreground">Oops! The page you are looking for doesn&apos;t exist or has been moved.</p>
         </CardContent>
         <CardFooter className="justify-center pb-8">
           <Button variant="default" asChild className="transition-all duration-200 hover:scale-105">

@@ -6,5 +6,5 @@ export const endpoints = {
   profile: `${baseUrl}/auth/profile`,
 
   // user
-  users: `${baseUrl}/customers`,
+  users: `${baseUrl}/users`,
 }
