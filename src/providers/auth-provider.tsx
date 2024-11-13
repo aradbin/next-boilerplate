@@ -8,6 +8,7 @@ const AuthContext = createContext<{
     id: string
     name: string
     email: string
+    avatar: string
   } | null
 }>({
   user: null,
