@@ -5,6 +5,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Button } from '../ui/button'
 import { Skeleton } from '../ui/skeleton'
 import { getQuery } from '@/lib/queries'
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '../ui/pagination'
+import PaginationComponent from './pagination-component'
 
 interface TableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -68,14 +70,7 @@ export function TableInstance<TData, TValue>({ columns, data }: TableProps<TData
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-          Previous
-        </Button>
-        <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-          Next
-        </Button>
-      </div>
+      <PaginationComponent table={table} />
     </>
   )
 }

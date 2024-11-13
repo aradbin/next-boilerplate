@@ -9,7 +9,7 @@ import { Command } from 'lucide-react'
 
 export function Header() {
   return (
-    <header className="flex gap-2 shrink-0 items-center justify-between h-16 px-4 border-b">
+    <header className="sticky flex gap-2 shrink-0 items-center justify-between h-16 px-4 border-b">
       <div className="flex gap-4 items-center">
         <SidebarToggle />
         <Link href="/dashboard" className="flex items-center md:hidden">
