@@ -1,26 +1,28 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Button } from '../ui/button'
-import Image from 'next/image'
+'use client'
 
-export function LanguageToggle() {
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { Button } from '../ui/button'
+import { useState } from 'react'
+import { languages } from '@/lib/variables'
+import { Check, Languages } from 'lucide-react'
+
+export default function LanguageToggle() {
+  const [language, setLanguage] = useState(languages[0])
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
-          <Image src={'/media/flags/united-states.svg'} alt="USA" height="10" width="16" />
+          <Languages />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[--radix-dropdown-menu-trigger-width] rounded-lg" side="bottom" align="center" sideOffset={4}>
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Image src={'/media/flags/united-states.svg'} alt="USA" height="10" width="20" />
-            USA
+      <DropdownMenuContent align="end">
+        {languages.map((lang) => (
+          <DropdownMenuItem key={lang.code} onClick={() => setLanguage(lang)} className="flex items-center justify-between">
+            {lang.name}
+            {lang.code === language.code && <Check className="h-4 w-4" />}
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Image src={'/media/flags/united-arab-emirates.svg'} alt="UAE" height="10" width="20" />
-            UAE
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   )

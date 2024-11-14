@@ -2,10 +2,10 @@ import * as React from 'react'
 import { SidebarToggle } from './sidebar-toggle'
 import { ThemeToggle } from '../common/theme-toggle'
 import { UserToggle } from '../common/user-toggle'
-import { LanguageToggle } from '../common/language-toggle'
 import { SearchComponent } from '../common/search-component'
 import Link from 'next/link'
 import { Command } from 'lucide-react'
+import LanguageToggle from '../common/language-toggle'
 
 export function Header() {
   return (
