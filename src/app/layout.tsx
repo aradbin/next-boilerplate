@@ -6,16 +6,12 @@ import './../../public/globals.css'
 import { Toaster } from '@/components/ui/sonner'
 import { AuthProvider } from '@/providers/auth-provider'
 import QueryProvider from '@/providers/query-provider'
+import { Plus_Jakarta_Sans } from 'next/font/google'
 
-const geistSans = localFont({
-  src: '../../public/fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-})
-const geistMono = localFont({
-  src: '../../public/fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jakarta'
 })
 
 export const metadata: Metadata = {
@@ -30,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${plusJakartaSans.variable} antialiased`}>
         <NextTopLoader height={3} showSpinner={false} />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <AuthProvider>
