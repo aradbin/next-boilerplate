@@ -9,22 +9,23 @@ export async function login(values: { email: string; password: string }) {
   return await axios
     .post(endpoints.login, values)
     .then((res) => {
-      if (res?.data?.accessToken) {
-        cookies().set('access', res?.data?.accessToken, {
+      if (res?.data?.data?.access) {
+        cookies().set('access', res?.data?.data?.access, {
           httpOnly: true,
           secure: true,
           expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
           sameSite: 'lax',
           path: '/',
         })
-
-        // cookies().set('refresh', res?.data?.data?.refresh, {
-        //   httpOnly: true,
-        //   secure: true,
-        //   expires: new Date(Date.now() + 60 * 60 * 1000),
-        //   sameSite: 'lax',
-        //   path: '/',
-        // })
+      }
+      if (res?.data?.data?.refresh) {
+        cookies().set('refresh', res?.data?.data?.refresh, {
+          httpOnly: true,
+          secure: true,
+          expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+          sameSite: 'lax',
+          path: '/',
+        })
 
         return {
           success: true,
@@ -38,7 +39,6 @@ export async function login(values: { email: string; password: string }) {
       }
     })
     .catch((error) => {
-      console.log('error', error)
       return {
         success: false,
         message: error?.response?.data?.message || 'Something went wrong. Please try again',
