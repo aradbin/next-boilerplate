@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import localFont from 'next/font/local'
 import NextTopLoader from 'nextjs-toploader'
 import { ThemeProvider } from '@/providers/theme-provider'
 import './../../public/globals.css'
@@ -11,7 +10,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google'
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-jakarta'
+  variable: '--font-jakarta',
 })
 
 export const metadata: Metadata = {
