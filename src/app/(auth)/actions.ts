@@ -9,8 +9,8 @@ export async function login(values: { email: string; password: string }) {
   return await axios
     .post(endpoints.login, values)
     .then((res) => {
-      if (res?.data?.accessToken) {
-        cookies().set('access', res?.data?.accessToken, {
+      if (res?.data?.refreshToken) {
+        cookies().set('refresh', res?.data?.refreshToken, {
           httpOnly: true,
           secure: true,
           expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
@@ -18,8 +18,9 @@ export async function login(values: { email: string; password: string }) {
           path: '/',
         })
       }
-      if (res?.data?.refreshToken) {
-        cookies().set('refresh', res?.data?.refreshToken, {
+
+      if (res?.data?.accessToken) {
+        cookies().set('access', res?.data?.accessToken, {
           httpOnly: true,
           secure: true,
           expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
@@ -80,5 +81,6 @@ export async function profile() {
 
 export async function logout() {
   cookies().delete('access')
+  cookies().delete('refresh')
   redirect('/login')
 }

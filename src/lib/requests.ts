@@ -32,7 +32,7 @@ export async function postRequest(url: string, values: unknown) {
 }
 
 const handleError = (error: AxiosError) => {
-  if (error?.response?.status) {
+  if (error?.response?.status === 401) {
     logout()
   }
 }
