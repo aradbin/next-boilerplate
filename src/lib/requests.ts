@@ -34,7 +34,10 @@ export async function postRequest(url: keyof EndpointType, values: unknown) {
   return await axios
     .post(endpoints[url], values)
     .then((response) => response.data)
-    .catch((error) => error?.response?.data)
+    .catch((error) => {
+      handleError(error)
+      return error?.response?.data
+    })
 }
 
 const handleError = (error: AxiosError) => {
