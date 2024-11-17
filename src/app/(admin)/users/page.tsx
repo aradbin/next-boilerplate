@@ -1,5 +1,6 @@
+import { userColumns } from '@/columns/user-columns'
+import { TableComponent } from '@/components/common/table-component'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import UsersTable from './users-table'
 
 export default async function Page() {
   return (
@@ -8,7 +9,7 @@ export default async function Page() {
         <CardTitle>Users</CardTitle>
       </CardHeader>
       <CardContent>
-        <UsersTable />
+        <TableComponent queryKey="users" columns={userColumns} url="users" />
       </CardContent>
     </Card>
   )

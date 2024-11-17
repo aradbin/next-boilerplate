@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Skeleton } from '../ui/skeleton'
 import { GetQuery } from '@/lib/queries'
 import PaginationComponent from './pagination-component'
+import { EndpointType } from '@/lib/types'
 
 export function TableInstance<TData, TValue>(
   {
@@ -77,8 +78,8 @@ export function TableInstance<TData, TValue>(
   )
 }
 
-export function TableComponent<TData, TValue>({ queryKey, columns, url }: { queryKey: string; columns: ColumnDef<TData, TValue>[]; url: string }) {
+export function TableComponent<TData, TValue>({ queryKey, columns, url }: { queryKey: string; columns: ColumnDef<TData, TValue>[]; url: keyof EndpointType }) {
   const { data, isLoading } = GetQuery(queryKey, url)
 
-  return <TableInstance columns={columns} data={data || []} isLoading={isLoading} />
+  return <TableInstance columns={columns} data={data?.data?.results || []} isLoading={isLoading} />
 }
