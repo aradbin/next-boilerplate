@@ -1,6 +1,5 @@
 'use server'
 
-import { headers } from 'next/headers'
 import { EndpointType } from './types'
 
 const protocol = 'https://'

@@ -7,11 +7,11 @@ import { redirect } from 'next/navigation'
 
 export async function login(values: { email: string; password: string }) {
   const endpoint = await getEndpoint('login')
-  console.log('endpoint',endpoint)
+  console.log('endpoint', endpoint)
   return await axios
     .post(endpoint, values)
     .then((res) => {
-      console.log('res',res)
+      console.log('res', res)
       if (res?.data?.refresh) {
         cookies().set('refresh', res?.data?.refresh, {
           httpOnly: true,
@@ -42,7 +42,7 @@ export async function login(values: { email: string; password: string }) {
       }
     })
     .catch((error) => {
-      console.log('error',error)
+      console.log('error', error)
       return {
         success: false,
         message: error?.response?.data?.message || 'Something went wrong. Please try again',
