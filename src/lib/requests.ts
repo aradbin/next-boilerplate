@@ -3,9 +3,10 @@
 import { logout } from '@/app/(auth)/actions'
 import axios, { AxiosError } from 'axios'
 import { cookies } from 'next/headers'
+import { EndpointType } from './types'
+import { getEndpoint } from './endpoints'
 
 const access = cookies().get('access')?.value
-
 axios.interceptors.request.use((config) => {
   if (access) {
     config.headers.Authorization = `Bearer ${access}`
@@ -14,25 +15,38 @@ axios.interceptors.request.use((config) => {
   return config
 })
 
-export async function getRequest(url: string, params: unknown = {}) {
-  return await axios
-    .get(url, { params })
+export async function getRequest(url: keyof EndpointType, params: unknown = {}) {
+  const endpoint = await getEndpoint(url)
+  return axios
+    .get(endpoint, { params })
     .then((response) => response.data)
-    .catch((error) => {
-      handleError(error)
+    .catch(async (error) => {
+      await handleError(error)
       return error?.response?.data
     })
 }
 
-export async function postRequest(url: string, values: unknown) {
+export async function postRequest(url: keyof EndpointType, values: unknown) {
+  const endpoint = await getEndpoint(url)
   return await axios
-    .post(url, values)
-    .then((response) => response.data)
-    .catch((error) => error?.response?.data)
+    .post(endpoint, values)
+    .then((response) => {
+      return {
+        success: true,
+        data: response.data,
+      }
+    })
+    .catch(async (error) => {
+      await handleError(error)
+      return {
+        success: false,
+        data: error?.response?.data,
+      }
+    })
 }
 
-const handleError = (error: AxiosError) => {
-  if (error?.response?.status) {
-    logout()
+const handleError = async (error: AxiosError) => {
+  if (error?.response?.status === 401) {
+    await logout()
   }
 }

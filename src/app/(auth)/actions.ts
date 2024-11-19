@@ -1,16 +1,17 @@
 'use server'
 
-import { endpoints } from '@/lib/variables'
+import { getEndpoint } from '@/lib/endpoints'
 import axios from 'axios'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function login(values: { email: string; password: string }) {
+  const endpoint = await getEndpoint('login')
   return await axios
-    .post(endpoints.login, values)
+    .post(endpoint, values)
     .then((res) => {
-      if (res?.data?.accessToken) {
-        cookies().set('access', res?.data?.accessToken, {
+      if (res?.data?.data?.refresh) {
+        cookies().set('refresh', res?.data?.data?.refresh, {
           httpOnly: true,
           secure: true,
           expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
@@ -18,8 +19,8 @@ export async function login(values: { email: string; password: string }) {
           path: '/',
         })
       }
-      if (res?.data?.refreshToken) {
-        cookies().set('refresh', res?.data?.refreshToken, {
+      if (res?.data?.data?.access) {
+        cookies().set('access', res?.data?.data?.access, {
           httpOnly: true,
           secure: true,
           expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
@@ -57,8 +58,9 @@ export async function profile() {
     }
   }
 
+  const endpoint = await getEndpoint('profile')
   return await axios
-    .get(endpoints.profile, {
+    .get(endpoint, {
       headers: {
         Authorization: `Bearer ${access}`,
       },
@@ -66,7 +68,7 @@ export async function profile() {
     .then((res) => {
       return {
         success: true,
-        data: res?.data,
+        data: res?.data?.data,
       }
     })
     .catch((error) => {
@@ -80,5 +82,6 @@ export async function profile() {
 
 export async function logout() {
   cookies().delete('access')
+  cookies().delete('refresh')
   redirect('/login')
 }

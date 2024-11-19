@@ -1,11 +1,32 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { AlertCircle } from 'lucide-react'
+import { cookies } from 'next/headers'
 import Link from 'next/link'
+import AdminLayout from './(admin)/layout'
+import PublicLayout from './(public)/layout'
 
 export default function NotFound() {
+  const session = cookies().get('access')?.value
   return (
-    <div className="flex h-screen w-full items-center justify-center">
+    <>
+      {session ? (
+        <AdminLayout>
+          <NotFoundComponent />
+        </AdminLayout>
+      ) : (
+        <PublicLayout>
+          <NotFoundComponent />
+        </PublicLayout>
+      )}
+    </>
+  )
+}
+
+function NotFoundComponent() {
+  const session = cookies().get('access')?.value
+  return (
+    <div className="flex w-full items-center justify-center mt-20">
       <Card className="mx-auto max-w-sm">
         <CardHeader className="justify-center text-center pb-2">
           <div className="relative mx-auto h-24 w-24 text-primary">
@@ -19,7 +40,7 @@ export default function NotFound() {
         </CardContent>
         <CardFooter className="justify-center pb-8">
           <Button variant="default" asChild className="transition-all duration-200 hover:scale-105">
-            <Link href="/">Return Home</Link>
+            <Link href={session ? '/dashboard' : '/'}>Return Home</Link>
           </Button>
         </CardFooter>
       </Card>

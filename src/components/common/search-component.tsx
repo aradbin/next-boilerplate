@@ -5,7 +5,7 @@ import { Button } from '../ui/button'
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '../ui/command'
 import { useState } from 'react'
 
-export function SearchComponent() {
+export default function SearchComponent() {
   const [open, setOpen] = useState(false)
 
   return (

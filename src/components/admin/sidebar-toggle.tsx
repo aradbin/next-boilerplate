@@ -6,7 +6,7 @@ import { useSidebar } from '../ui/sidebar'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 
-export function SidebarToggle() {
+export default function SidebarToggle() {
   const { toggleSidebar, setOpenMobile } = useSidebar()
   const pathname = usePathname()
 

@@ -1,16 +1,18 @@
 'use client'
 
 import * as React from 'react'
-import { Command, Menu } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import Link from 'next/link'
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from '../ui/sheet'
 import { Button } from '../ui/button'
-import { ThemeToggle } from '../common/theme-toggle'
+import ThemeToggle from '../common/theme-toggle'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/providers/auth-provider'
+import LogoLight from '../../../public/media/logo-light.svg'
+import Image from 'next/image'
 
-export function Header() {
+export default function Header() {
   const pathname = usePathname()
   const { user } = useAuth()
 
@@ -27,9 +29,8 @@ export function Header() {
           </SheetTrigger>
           <SheetContent side="left">
             <SheetHeader>
-              <Link href="/" className="mr-4 flex items-center justify-center space-x-2">
-                <Command />
-                <span className="font-bold">Acme Inc</span>
+              <Link href="/" className="flex items-center justify-center">
+                <Image src={LogoLight} alt="Logo" width="90" />
               </Link>
             </SheetHeader>
             <div className="overflow-auto py-10">
@@ -49,20 +50,10 @@ export function Header() {
             </SheetFooter>
           </SheetContent>
         </Sheet>
-        <div className="flex md:hidden">
-          <Link href="/" className="mr-4 flex items-center space-x-2">
-            <Command />
-            <span className="font-bold">Acme Inc</span>
-          </Link>
-        </div>
         {/* MobileNav */}
 
         {/* MainNav */}
         <div className="hidden md:flex gap-6 items-center text-sm">
-          <Link href="/" className="flex items-center space-x-2">
-            <Command />
-            <span className="hidden font-bold lg:inline-block">Acme Inc</span>
-          </Link>
           <Link href="/about" className={cn('transition-colors hover:text-foreground/80', pathname === '/pricing' ? 'text-foreground' : 'text-foreground/60')}>
             About
           </Link>
@@ -71,6 +62,12 @@ export function Header() {
           </Link>
         </div>
         {/* MainNav */}
+
+        <div className="flex">
+          <Link href="/" className="flex items-center">
+            <Image src={LogoLight} alt="Logo" width="60" />
+          </Link>
+        </div>
 
         <div className="flex items-center gap-2">
           <Button className="hidden md:flex" asChild>

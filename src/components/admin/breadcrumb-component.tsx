@@ -9,7 +9,7 @@ export default function BreadcrumbComponent() {
   const pathname = usePathname()
 
   return (
-    <Breadcrumb>
+    <Breadcrumb className="hidden md:block border py-1.5 px-3 rounded">
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href="/dashboard">

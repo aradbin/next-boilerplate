@@ -1,11 +1,10 @@
-'use client'
-
 import * as React from 'react'
-import { ChevronRight, Command, SquareTerminal, Bot, Settings } from 'lucide-react'
+import { ChevronRight, SquareTerminal, Bot, Settings } from 'lucide-react'
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarMenuSub, SidebarMenuSubItem, SidebarMenuSubButton, SidebarGroup, SidebarGroupLabel } from '@/components/ui/sidebar'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Image from 'next/image'
+import LogoLight from '../../../public/media/logo-light.svg'
 
 interface IconProps {
   icon: React.ElementType
@@ -18,10 +17,8 @@ interface MenuType {
   subs?: MenuType[]
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const pathname = usePathname()
-
-  const data = {
+export default async function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const admin = {
     groups: [
       {
         title: 'Platform',
@@ -38,12 +35,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             icon: Bot,
             isActive: false,
           },
-          {
-            title: 'Tenants',
-            url: '/tenants',
-            icon: Bot,
-            isActive: false,
-          },
         ],
       },
     ],
@@ -53,23 +44,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar variant="inset" collapsible="icon" side="left" {...props}>
       <SidebarHeader>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <Link href="/dashboard">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <Command className="size-4" />
-                </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
-                </div>
-              </Link>
-            </SidebarMenuButton>
+          <SidebarMenuItem className="flex justify-center">
+            <Link href="/dashboard">
+              <Image src={LogoLight} alt="Logo" width="90" />
+            </Link>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {data?.groups?.map((group, index) => (
+        {admin?.groups?.map((group, index) => (
           <SidebarGroup key={index}>
             {group?.title && <SidebarGroupLabel>{group?.title}</SidebarGroupLabel>}
             <SidebarMenu>
@@ -80,7 +63,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <SidebarMenuItem>
                         <CollapsibleTrigger asChild>
                           {menu?.url ? (
-                            <SidebarMenuButton asChild tooltip={menu?.title} isActive={pathname === menu?.url}>
+                            <SidebarMenuButton asChild tooltip={menu?.title}>
                               <Link href={menu?.url}>
                                 {menu?.icon && <menu.icon />}
                                 <span>{menu?.title}</span>
@@ -101,7 +84,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           <SidebarMenuSub>
                             {menu?.subs?.map((sub: MenuType) => (
                               <SidebarMenuSubItem key={sub?.title}>
-                                <SidebarMenuSubButton asChild isActive={pathname === sub?.url}>
+                                <SidebarMenuSubButton asChild>
                                   <Link href={sub?.url}>
                                     <span>{sub?.title}</span>
                                   </Link>
@@ -114,7 +97,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </Collapsible>
                   ) : (
                     <SidebarMenuItem>
-                      <SidebarMenuButton asChild tooltip={menu?.title} isActive={pathname === menu?.url}>
+                      <SidebarMenuButton asChild tooltip={menu?.title}>
                         <Link href={menu?.url}>
                           {menu?.icon && <menu.icon />}
                           <span>{menu?.title}</span>
@@ -131,7 +114,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild tooltip="settings" isActive={pathname === '/settings'}>
+            <SidebarMenuButton asChild tooltip="settings">
               <Link href="/#">
                 <Settings />
                 <span>Settings</span>

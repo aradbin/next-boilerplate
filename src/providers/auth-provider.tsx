@@ -1,15 +1,11 @@
 'use client'
 
 import { profile } from '@/app/(auth)/actions'
+import { UserType } from '@/lib/types'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 const AuthContext = createContext<{
-  user: {
-    id: string
-    name: string
-    email: string
-    avatar: string
-  } | null
+  user: UserType | null
 }>({
   user: null,
 })

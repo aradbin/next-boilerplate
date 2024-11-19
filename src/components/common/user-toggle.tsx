@@ -7,7 +7,7 @@ import { BadgeCheck, Bell, DollarSign, User } from 'lucide-react'
 import Logout from '../admin/logout'
 import { useAuth } from '@/providers/auth-provider'
 
-export function UserToggle() {
+export default function UserToggle() {
   const { user } = useAuth()
   return (
     <DropdownMenu>
