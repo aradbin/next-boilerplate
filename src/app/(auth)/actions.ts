@@ -5,12 +5,6 @@ import axios from 'axios'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-const baseUrl = 'https://api.rci.rest'
-const endpoints = {
-  login: `${baseUrl}/auth/login`,
-  profile: `${baseUrl}/auth/profile`,
-}
-
 export async function login(values: { email: string; password: string }) {
   const endpoint = await getEndpoint('login')
   return await axios
