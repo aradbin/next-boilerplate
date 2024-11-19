@@ -7,11 +7,13 @@ import { redirect } from 'next/navigation'
 
 export async function login(values: { email: string; password: string }) {
   const endpoint = await getEndpoint('login')
+  console.log('endpoint',endpoint)
   return await axios
     .post(endpoint, values)
     .then((res) => {
-      if (res?.data?.data?.refresh) {
-        cookies().set('refresh', res?.data?.data?.refresh, {
+      console.log('res',res)
+      if (res?.data?.refresh) {
+        cookies().set('refresh', res?.data?.refresh, {
           httpOnly: true,
           secure: true,
           expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
@@ -19,8 +21,8 @@ export async function login(values: { email: string; password: string }) {
           path: '/',
         })
       }
-      if (res?.data?.data?.access) {
-        cookies().set('access', res?.data?.data?.access, {
+      if (res?.data?.accessToken) {
+        cookies().set('access', res?.data?.accessToken, {
           httpOnly: true,
           secure: true,
           expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
@@ -40,6 +42,7 @@ export async function login(values: { email: string; password: string }) {
       }
     })
     .catch((error) => {
+      console.log('error',error)
       return {
         success: false,
         message: error?.response?.data?.message || 'Something went wrong. Please try again',
