@@ -1,13 +1,18 @@
 'use client'
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Button } from '../ui/button'
-import { useState } from 'react'
-import { languages } from '@/lib/variables'
 import { Check, Languages } from 'lucide-react'
+import { languages } from '@/lib/variables'
+import { getLocale, setLocale } from '@/lib/i18n'
+import { useEffect, useState } from 'react'
 
 export default function LanguageToggle() {
-  const [language, setLanguage] = useState(languages[0])
+  const [language, setLanguage] = useState('')
+
+  useEffect(() => {
+    getLocale().then((value) => setLanguage(value))
+  }, [])
 
   return (
     <DropdownMenu>
@@ -16,13 +21,23 @@ export default function LanguageToggle() {
           <Languages />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        {languages.map((lang) => (
-          <DropdownMenuItem key={lang.code} onClick={() => setLanguage(lang)} className="flex items-center justify-between">
-            {lang.name}
-            {lang.code === language.code && <Check className="h-4 w-4" />}
-          </DropdownMenuItem>
-        ))}
+      <DropdownMenuContent className="w-40 rounded-lg" side="bottom" align="end" sideOffset={4}>
+        <DropdownMenuLabel>Select Language</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          {languages.map((item) => (
+            <DropdownMenuItem
+              key={item.code}
+              onSelect={async () => {
+                await setLocale(item.code)
+                setLanguage(item.code)
+              }}
+            >
+              {item.name}
+              {item.code === language && <Check className="ml-auto h-4 w-4" />}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   )
