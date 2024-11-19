@@ -1,14 +1,13 @@
-import { Command } from 'lucide-react'
-// import Image from 'next/image'
 import Link from 'next/link'
+import LogoLight from '../../../public/media/logo-light.svg'
+import Image from 'next/image'
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {/* <Header /> */}
-      <Link href="/" className="fixed top-5 left-10 flex items-center justify-center space-x-2">
-        <Command />
-        <span className="font-bold">Acme Inc</span>
+      <Link href="/" className="fixed top-5 left-10 flex items-center justify-center">
+        <Image src={LogoLight} alt="Logo" width="90" />
       </Link>
       <div className="w-full lg:grid lg:grid-cols-2">
         <div className="flex h-screen w-full items-center justify-center px-4">{children}</div>

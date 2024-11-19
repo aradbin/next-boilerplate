@@ -1,4 +1,6 @@
 export type EndpointType = {
+  login: string
+  profile: string
   users: string
 }
 

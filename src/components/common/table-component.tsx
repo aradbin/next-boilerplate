@@ -78,7 +78,7 @@ export function TableInstance<TData, TValue>(
   )
 }
 
-export function TableComponent<TData, TValue>({ queryKey, columns, url }: { queryKey: string; columns: ColumnDef<TData, TValue>[]; url: keyof EndpointType }) {
+export default function TableComponent<TData, TValue>({ queryKey, columns, url }: { queryKey: string; columns: ColumnDef<TData, TValue>[]; url: keyof EndpointType }) {
   const { data, isLoading } = GetQuery(queryKey, url)
 
   return <TableInstance columns={columns} data={data?.data?.results || []} isLoading={isLoading} />

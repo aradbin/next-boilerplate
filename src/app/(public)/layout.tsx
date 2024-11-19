@@ -1,6 +1,6 @@
-import { Header } from '@/components/public/header'
+import Header from '@/components/public/header'
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import NextTopLoader from 'nextjs-toploader'
-import { ThemeProvider } from '@/providers/theme-provider'
+import ThemeProvider from '@/providers/theme-provider'
 import './../../public/globals.css'
 import { Toaster } from '@/components/ui/sonner'
 import { AuthProvider } from '@/providers/auth-provider'
@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${plusJakartaSans.variable} antialiased`}>
+      <body className={`${plusJakartaSans.variable}`}>
         <NextTopLoader height={3} showSpinner={false} />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <AuthProvider>

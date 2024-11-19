@@ -6,8 +6,8 @@ import { toast } from 'sonner'
 export default function Logout() {
   return (
     <DropdownMenuItem
-      onClick={() => {
-        logout()
+      onClick={async () => {
+        await logout()
         toast.success('Logged out successfully')
       }}
     >

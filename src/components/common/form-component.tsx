@@ -1,11 +1,12 @@
 'use client'
 
-import { InputField } from '@/components/fields/input-field'
+import InputField from '@/components/fields/input-field'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { FormFieldType } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -27,13 +28,17 @@ export default function FormComponent({
   })
 
   const onSubmit = async (values: z.infer<typeof formData.formSchema>) => {
-    handleSubmit(values)
+    await handleSubmit(values)
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">{formData.fields.map((field) => renderField(field.type || 'text', { form, data: field }))}</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {formData.fields.map((field) => (
+            <React.Fragment key={field.name}>{renderField(field.type || 'text', { form, data: field })}</React.Fragment>
+          ))}
+        </div>
         <div className="flex justify-end mt-4">
           <Button type="submit" className="w-[150px]" disabled={form.formState.isSubmitting}>
             {form.formState.isSubmitting ? (

@@ -4,14 +4,9 @@ import { logout } from '@/app/(auth)/actions'
 import axios, { AxiosError } from 'axios'
 import { cookies } from 'next/headers'
 import { EndpointType } from './types'
+import { getEndpoint } from './endpoints'
 
 const access = cookies().get('access')?.value
-const baseUrl = 'https://api.rci.rest'
-const endpoints: EndpointType = {
-  // user
-  users: `${baseUrl}/auth/users`,
-}
-
 axios.interceptors.request.use((config) => {
   if (access) {
     config.headers.Authorization = `Bearer ${access}`
@@ -21,27 +16,37 @@ axios.interceptors.request.use((config) => {
 })
 
 export async function getRequest(url: keyof EndpointType, params: unknown = {}) {
-  return await axios
-    .get(endpoints[url], { params })
+  const endpoint = await getEndpoint(url)
+  return axios
+    .get(endpoint, { params })
     .then((response) => response.data)
-    .catch((error) => {
-      handleError(error)
+    .catch(async (error) => {
+      await handleError(error)
       return error?.response?.data
     })
 }
 
 export async function postRequest(url: keyof EndpointType, values: unknown) {
+  const endpoint = await getEndpoint(url)
   return await axios
-    .post(endpoints[url], values)
-    .then((response) => response.data)
-    .catch((error) => {
-      handleError(error)
-      return error?.response?.data
+    .post(endpoint, values)
+    .then((response) => {
+      return {
+        success: true,
+        data: response.data,
+      }
+    })
+    .catch(async (error) => {
+      await handleError(error)
+      return {
+        success: false,
+        data: error?.response?.data,
+      }
     })
 }
 
-const handleError = (error: AxiosError) => {
+const handleError = async (error: AxiosError) => {
   if (error?.response?.status === 401) {
-    logout()
+    await logout()
   }
 }

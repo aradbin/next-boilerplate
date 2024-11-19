@@ -3,7 +3,7 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessa
 import { Input } from '../ui/input'
 import { upperFirst } from 'lodash'
 
-export function InputField({ form, data }: FormFieldType) {
+export default function InputField({ form, data }: FormFieldType) {
   return (
     <FormField
       control={form.control}

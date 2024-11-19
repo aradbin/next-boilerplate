@@ -15,7 +15,7 @@ export const userColumns: ColumnDef<UserType>[] = [
     header: 'Email',
   },
   {
-    accessorKey: 'contact',
+    accessorKey: 'phone_number',
     header: 'Contact',
   },
   {
