@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils'
 import { useAuth } from '@/providers/auth-provider'
 import LogoLight from '../../../public/media/logo-light.svg'
 import Image from 'next/image'
+import LanguageToggle from '../common/language-toggle'
 
 export default function Header() {
   const pathname = usePathname()
@@ -70,10 +71,11 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-2">
+          <LanguageToggle />
+          <ThemeToggle />
           <Button className="hidden md:flex" asChild>
             {user ? <Link href="/dashboard">Dashboard</Link> : <Link href="/login">Get Started</Link>}
           </Button>
-          <ThemeToggle />
         </div>
       </div>
     </header>
